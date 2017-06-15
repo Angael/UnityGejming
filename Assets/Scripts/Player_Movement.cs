@@ -4,13 +4,15 @@ using UnityEngine;
 
 public class Player_Movement : MonoBehaviour {
 	//Zmienne widoczne w Unity:
+
 	//przyspieszenie i zwalnianie:
-	public int acceleration = 12;
-	public int rotationAcceleration = 1;
-	private float minimalSpeed = 0f;
-	public float xVelocity = 0f;
-	public float yVelocity = 0f;
-	public float maxSpeed = 5f;
+	//Aby zmienić prędkość gracza trzeba bawić się 
+	//Linear Drag w Rigidbody2D
+	//i acceleration:
+	public int acceleration = 100;
+
+	//bigger rotationAcceleration = faster rotate
+	public int rotationAcceleration = 19;
 	public Transform target; //Assign to the object you want to rotate
 
 	//movement private variables
@@ -37,6 +39,8 @@ public class Player_Movement : MonoBehaviour {
 			
 	}
 
+	//Obraca gracza w kierunku myszki, wygładzając ruch
+	//(skrypt z neta)
 	private void RotatePlayer(){
 		mouse_pos = Input.mousePosition;
 		mouse_pos.z = 5.23f; //The distance between the camera and object
@@ -53,15 +57,9 @@ public class Player_Movement : MonoBehaviour {
 		float xButton = Input.GetAxisRaw("Horizontal");
 		float yButton = Input.GetAxisRaw("Vertical");
 
-		rb.AddForce(new Vector2(maxSpeed*xButton*acceleration, maxSpeed*yButton*acceleration) );
-		//xVelocity = Mathf.Lerp(xVelocity, maxSpeed*xButton, Time.deltaTime*acceleration);
-		//yVelocity = Mathf.Lerp(yVelocity, maxSpeed*yButton, Time.deltaTime*acceleration);
-
-		//rb.velocity = new Vector2(xVelocity,
-		//							yVelocity
-		//							);
-
-			Debug.Log(rb.velocity);
+		Vector2 moveVectorForce = new Vector2(xButton*acceleration, yButton*acceleration);
+		rb.AddForce(moveVectorForce);
+		//Debug.Log(moveVectorForce);
 	}
 
 	
