@@ -4,16 +4,20 @@ using UnityEngine;
 
 public class Player_Actions : MonoBehaviour {
 
-public GameObject spriteUsed;
+    //PLAYER ACTION to skrypt w którym powinny być:
+    //Akcje wykonane po kliknięciu przycisków klawiatury i myszki
 
-private Transform gunPoint;
+    public GameObject spriteUsed;
+    public LineRenderer shootLine;
+    public GameObject shootParticles;
+    public WeaponHolder weaponHolder;
 
-//PLAYER ACTION to skrypt w którym powinny być:
-//Akcje wykonane po kliknięciu przycisków klawiatury i myszki
-//
-	// Use this for initialization
-	void Start () {
-		//Zapisz miejsce lufy w naszym "sprajcie"
+    private Transform gunPoint;
+    private float timeOfNextShot = 0;
+
+
+    void Start () {
+		//Zapisz miejsce lufy w naszym "sprajcie", bo player strzela z lufy a nie oczu
 		gunPoint = spriteUsed.transform.GetChild(0).transform;
 	}
 	
@@ -21,7 +25,7 @@ private Transform gunPoint;
 	void Update () {
 		if (Input.GetMouseButton(0)){
 			Debug.Log("Pressing left click.");
-			useWeapon();
+            weaponHolder.leftClick();
 		}
             
         
@@ -35,21 +39,5 @@ private Transform gunPoint;
 		}
             
     }
-
-	//W przyszłości useWeapon ma móc obsłużyć więcej niż jedną broń
-	//np. machanie mieczem, strzelanie, rzucanie fireballem, idk
-	void useWeapon(){
-		//Strzelanie, nie aplikuje sie do mieczy, magii itp.
-		RaycastHit2D hit = Physics2D.Raycast(gunPoint.position, gunPoint.TransformDirection(Vector2.right), 5);
-		float distance =0f;
-        if (hit.collider != null) {
-            distance = Vector2.Distance(gunPoint.transform.position, hit.point);
-			Debug.Log("Hit something with tag: " + hit.transform.tag);
-        }
-
-		//DEBUG DRAW - pozwala widziec jak wygladal strzal
-		Vector3 forward = gunPoint.TransformDirection(Vector2.right) * distance;
-        Debug.DrawRay(gunPoint.position, forward, Color.green, 2);
-	}
 	
 }
