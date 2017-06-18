@@ -4,12 +4,13 @@ using UnityEngine;
 
 public class Gun : MonoBehaviour {
 
+    //zmienne edytowane już w unity, bo każdy pistolet może mieć inne statystyki
     [Header("Gun stats")]
     public float damage;
     public float shotsPerSecond;
     public int range;
 
-    [Space(10)]
+    [Space]
     [Header("Gun effects")]
     public LineRenderer shootLine;
     public GameObject shootParticles; //pojawiają się przy celu
@@ -19,6 +20,7 @@ public class Gun : MonoBehaviour {
 
     void Awake()
     {
+        //narazie zakładam że jest tylko jedna rzecz (child) w naszej broni, punkt z którego lecą pociski
         gunPoint = transform.GetChild(0).transform;
     }
 
@@ -58,10 +60,6 @@ public class Gun : MonoBehaviour {
             //Pojawiają się cząsteczki po uderzeniu
             GameObject spawnedParticles = Instantiate(shootParticles, hit.point, Quaternion.LookRotation(hit.normal));
             Destroy(spawnedParticles, 0.25f);
-
-            //DEBUG DRAW - pozwala widziec jak wygladal strzal
-            //Vector3 forward = gunPoint.TransformDirection(Vector2.right) * distance;
-            //Debug.DrawRay(gunPoint.position, forward, Color.green, 2);
         }
         else
         {
@@ -70,9 +68,6 @@ public class Gun : MonoBehaviour {
             shootLine.SetPosition(1, gunPoint.transform.position + gunPoint.TransformDirection(Vector2.right * 20));
             Invoke("HideShootLine", 0.04f);
         }
-
-
-
     }
 
     //ukryj linię po strzale

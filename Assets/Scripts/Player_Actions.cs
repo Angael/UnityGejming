@@ -7,37 +7,60 @@ public class Player_Actions : MonoBehaviour {
     //PLAYER ACTION to skrypt w którym powinny być:
     //Akcje wykonane po kliknięciu przycisków klawiatury i myszki
 
-    public GameObject spriteUsed;
-    public LineRenderer shootLine;
-    public GameObject shootParticles;
+
     public WeaponHolder weaponHolder;
+    
 
-    private Transform gunPoint;
-    private float timeOfNextShot = 0;
-
-
-    void Start () {
-		//Zapisz miejsce lufy w naszym "sprajcie", bo player strzela z lufy a nie oczu
-		gunPoint = spriteUsed.transform.GetChild(0).transform;
-	}
-	
+    //Wszystkie przyciski numeryczne 1-9
+    private KeyCode[] keyCodes = {
+                 KeyCode.Alpha1,
+                 KeyCode.Alpha2,
+                 KeyCode.Alpha3,
+                 KeyCode.Alpha4,
+                 KeyCode.Alpha5,
+                 KeyCode.Alpha6,
+                 KeyCode.Alpha7,
+                 KeyCode.Alpha8,
+                 KeyCode.Alpha9,
+             };
+    
 	// Update is called once per frame
 	void Update () {
+        //shooting / slashing/ throwing fireball
 		if (Input.GetMouseButton(0)){
 			Debug.Log("Pressing left click.");
             weaponHolder.leftClick();
 		}
             
-        
+        //not used
         if (Input.GetMouseButtonDown(1)){
 			Debug.Log("Pressed right click.");
 		}
             
-        
+        //not used
         if (Input.GetMouseButtonDown(2)){
 			Debug.Log("Pressed middle click.");
 		}
-            
+
+        //scroll wheel for selecting weapons
+        if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
+        {
+            weaponHolder.ChangeWeapon("next");
+        }
+        else if (Input.GetAxis("Mouse ScrollWheel") < 0f) // backwards
+        {
+            weaponHolder.ChangeWeapon("previous");
+        }
+
+        //numbers for selecting weapons
+        for (int i = 0; i<keyCodes.Length; i ++ ){
+            if(Input.GetKeyDown(keyCodes[i])){
+                int numberPressed = i + 1;
+                weaponHolder.ChangeWeapon(numberPressed - 1);
+            }
+        }
+         // WUCC check for errors. 
+         
     }
 	
 }
