@@ -12,6 +12,8 @@ public class CameraScript : MonoBehaviour {
 	
 	void Update () {
 		// poniewaz gra 2d to oś Z jest stała
-		transform.position = new Vector3(whatToFollow.position.x,whatToFollow.position.y, -10);
+		transform.position = new Vector3(whatToFollow.position.x,whatToFollow.position.y, -15);
+        
+
 	}
 }

@@ -1,11 +1,12 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class MainMenu : MonoBehaviour {
 
 	// Zmień scene na "test"
 	public void PlayGame(){
-		Application.LoadLevel("Test");
-	}
+        SceneManager.LoadScene("Test", LoadSceneMode.Single);
+    }
 }
