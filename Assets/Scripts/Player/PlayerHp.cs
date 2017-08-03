@@ -40,6 +40,6 @@ public class PlayerHp : MonoBehaviour {
 
     private void Die()
     {
-        SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
+        SingleTon.instance.EndGame();
     }
 }

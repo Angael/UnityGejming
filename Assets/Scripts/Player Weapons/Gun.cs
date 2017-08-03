@@ -7,6 +7,7 @@ public class Gun : MonoBehaviour {
 
     //zmienne edytowane już w unity, bo każdy pistolet może mieć inne statystyki
     [Header("Gun stats")]
+    public ammoDrop.AmmoTypes ammoType;
     public float damage;
     public float penetration = 0.5f; // w procentach ile pancerza omija, 1 = omija cały pancerz, 0 = nie ma żadnej penetracji
     public float shotsPerSecond;
@@ -73,7 +74,6 @@ public class Gun : MonoBehaviour {
         Bullet bulletScript = shotBullet.GetComponent<Bullet>();
         bulletScript.damage = damage;
         bulletScript.penetration = penetration;
-        bulletScript.hitEffect = shootParticles;
 
         shotBullet.GetComponent<Rigidbody2D>().velocity = gunPoint.right * bulletSpeed;
         Destroy(shotBullet, 3f);
@@ -91,6 +91,19 @@ public class Gun : MonoBehaviour {
         }
         //parent parent bo obracamy "Player"
         transform.parent.parent.transform.Rotate(Vector3.back, currentRecoil*recoilDirection);
+    }
+
+    //Dodaj amunicję do plecaka, ale tylko jeśli zgadza się z typem amunicji tej broni
+    void AddAmmo(ammoDrop AmmoDrop)
+    {
+        if(AmmoDrop.ammoType == ammoType)
+        {
+            Debug.Log("Ammo is ok");
+            AmmoInStock += AmmoDrop.count;
+        }else
+        {
+            Debug.Log("Ammo is wrong");
+        }
     }
 
     //Kliknięte r, zacznij proces przeładowywania
@@ -169,6 +182,6 @@ public class Gun : MonoBehaviour {
     //update ui, każe singletonowi napisać coś w ui, np. ile jest amunicji czy cokolwiek innego
     void UpdateUI()
     {
-        SingleTon.instance.UpdateAmmoUI(ammoLeftInMag,AmmoInStock);
+        weaponHolder.UpdateAmmoUI(ammoLeftInMag,AmmoInStock);
     }
 }

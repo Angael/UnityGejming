@@ -70,9 +70,9 @@ public class Player_Actions : MonoBehaviour {
     }
 	
     //Kiedy gracz podniesie amunicje, argumenty: do jakiej broni i ile tej amunicji
-    public void pickUpAmmo(ammoDrop.AmmoTypes ammoType, int count)
+    public void pickUpAmmo(ammoDrop AmmoDrop)
     {
-        weaponHolder.pickUpAmmo(); // do dokończenia
+        weaponHolder.pickUpAmmo(AmmoDrop); // do dokończenia
         
     }
 }

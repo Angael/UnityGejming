@@ -13,7 +13,6 @@ public class Player_Movement : MonoBehaviour {
 
 	//bigger rotationAcceleration = faster rotate
 	public int rotationAcceleration = 19;
-	public Transform target; //Assign to the object you want to rotate
 
 	//movement private variables
 	private Rigidbody2D rb;

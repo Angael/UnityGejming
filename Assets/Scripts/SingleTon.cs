@@ -4,12 +4,13 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
+//NARAZIE TEN SKRYPT JEST BEZUŻYTECZNY
 public class SingleTon : MonoBehaviour {
 
     /*If one gamemaster script already exists, then this one is not needed, so delete it*/
     public static SingleTon instance;
-    
-    public Text AmmoText;
+
+    public GameObject EndGameUI;
 
     void Awake()
     {
@@ -17,7 +18,6 @@ public class SingleTon : MonoBehaviour {
         {
             instance = this;
             DontDestroyOnLoad(gameObject);
-            AmmoText.text = "Ammo: -/-";
         }
         else
             Destroy(gameObject);
@@ -26,10 +26,7 @@ public class SingleTon : MonoBehaviour {
         //W różnych scenach może nie być połączone na starcie więc warto to zrobić na starcie sceny w sumie
     }
 
-    public void UpdateAmmoUI(int inMag, int inReserve)
-    {
-        AmmoText.text = string.Format("Ammo: {0}/{1}", inMag, inReserve );
-    }
+    
 
     //Nieżej są funkcje związane ze zmienianiem scen
     void OnEnable()
@@ -44,12 +41,19 @@ public class SingleTon : MonoBehaviour {
         SceneManager.sceneLoaded -= OnLevelFinishedLoading;
     }
 
+    //nasza funkcja, może się nazywać jakkolwiek
     void OnLevelFinishedLoading(Scene scene, LoadSceneMode mode)
     {
         Debug.Log("Level Loaded");
         Debug.Log(scene.name);
         Debug.Log(mode);
         
-        AmmoText = GameObject.Find("UI_Ammo").GetComponent<Text>();
+        Time.timeScale = 1;
+    }
+
+    public void EndGame()
+    {
+        Time.timeScale = 0;
+        EndGameUI.SetActive(true);
     }
 }

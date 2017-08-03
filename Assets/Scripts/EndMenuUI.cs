@@ -3,27 +3,17 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-public class PauseGameUI : MonoBehaviour {
+public class EndMenuUI : MonoBehaviour
+{
 
     void Start()
     {
-        transform.GetComponent<Canvas>().enabled = false;
+        gameObject.SetActive(false);
     }
-	
-	void Update () {
-        if (Input.GetKeyDown(KeyCode.Escape))
-        {
-            if (Time.timeScale == 0)
-            {
-                Time.timeScale = 1;
-                transform.GetComponent<Canvas>().enabled = false;
-            }
-            else
-            {
-                Time.timeScale = 0;
-                transform.GetComponent<Canvas>().enabled = true;
-            }
-        }
+
+    void Update()
+    {
+        //Time.timeScale = 0;
     }
 
     //Guzik MainMenu
@@ -31,15 +21,18 @@ public class PauseGameUI : MonoBehaviour {
     {
         SceneManager.LoadScene("MainMenu", LoadSceneMode.Single);
         Time.timeScale = 1;
+        gameObject.SetActive(false);
     }
     public void Replay()
     {
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         Time.timeScale = 1;
+        gameObject.SetActive(false);
     }
     public void ExitGame()
     {
         Application.Quit();
         Time.timeScale = 1;
+        gameObject.SetActive(false);
     }
 }

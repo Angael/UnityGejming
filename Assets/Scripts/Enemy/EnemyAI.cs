@@ -24,11 +24,11 @@ public class EnemyAI : MonoBehaviour {
     public Path path;
 
     //The AI's speed per second
-    public float speed = 300f;
+    public float speed = 3000f;
     public ForceMode2D fMode;
 
 
-    public bool pathIsEnded = false;
+    private bool pathIsEnded = false;
 
     //Jak blisko musi być punktu by uznać że do niego już doszedł?
     public float nextWaypointDistance = 1f;

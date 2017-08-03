@@ -19,6 +19,7 @@ public class WeaponHolder : MonoBehaviour {
     private int activeWeaponIndex = 0;
 
     public Image reloadAnimation;
+    public Text AmmoText;
 
     void Awake()
     {
@@ -108,11 +109,32 @@ public class WeaponHolder : MonoBehaviour {
         //Debug.Log("rr");
     }
 
-    public void pickUpAmmo()
+    public void pickUpAmmo(ammoDrop AmmoDrop)
     {
         // do dokończenia
         //bronie nie mogą mieć ammo w sobie, musi być to przechowywane w weaponholderze, ZRÓB JAKĄŚ KLASĘ NA BRONIE I ICH TYPY
         //Protip: każda broń implementuje interfejs weaponInterface -> posiada guziki R lmb rmb ...
         //https://forum.unity3d.com/threads/adding-scripts-to-a-list-an-attempt-at-a-modular-spell-system.138945/
+
+        //2nd try:
+        /*WHen pickup, enable all weapons, send adding ammo and disable all unused*/
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(true);
+            Debug.Log(child.gameObject);
+        }
+
+        BroadcastMessage("AddAmmo", AmmoDrop, SendMessageOptions.DontRequireReceiver);
+
+        foreach (Transform child in transform)
+        {
+            child.gameObject.SetActive(false);
+        }
+        transform.GetChild(activeWeaponIndex).gameObject.SetActive(true);
+    }
+
+    public void UpdateAmmoUI(int inMag, int inReserve)
+    {
+        AmmoText.text = string.Format("Ammo: {0}/{1}", inMag, inReserve);
     }
 }
