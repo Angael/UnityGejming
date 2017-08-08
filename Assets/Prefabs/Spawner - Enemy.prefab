@@ -52,7 +52,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Object: {fileID: 1028676685524716, guid: 0e8eac48966b9704d8cba2f2b1becfb1, type: 2}
-  SpawnPerSecond: 1
-  MaxEnemiesSpawned: 60
+  SpawnPerSecond: 90
+  maxSpawnedOnScene: 150
+  maxSpawnedByMe: 90000
   MinDistanceFromPlayer: 13
   MaxDistanceFromPlayer: 25

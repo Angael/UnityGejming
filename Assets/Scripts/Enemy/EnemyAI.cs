@@ -149,7 +149,9 @@ public class EnemyAI : MonoBehaviour {
     void Update()
     {
         //face direction it's walking to
+        
         bool nearPlayer = 5 > Vector2.Distance(transform.position, target.position);
+        
         if (nearPlayer)
         {
             Vector3 dir = target.position - transform.position;

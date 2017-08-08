@@ -23,7 +23,6 @@ GameObject:
   - component: {fileID: 50311421116858112}
   - component: {fileID: 114022445393994364}
   - component: {fileID: 114834215172716628}
-  - component: {fileID: 114956022896271056}
   - component: {fileID: 114343718682273732}
   m_Layer: 0
   m_Name: EnemyTest
@@ -41,7 +40,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4342053274523310}
   - component: {fileID: 68894303805961972}
-  m_Layer: 0
+  m_Layer: 12
   m_Name: AttackRange
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -117,7 +116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!4 &4342053274523310
 Transform:
   m_ObjectHideFlags: 1
@@ -151,8 +150,8 @@ Transform:
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   m_GameObject: {fileID: 1028676685524716}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -11.47, y: -8.78, z: 0}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
+  m_LocalPosition: {x: -1.64, y: -9.9, z: 0.75}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 4446627981857090}
@@ -188,7 +187,7 @@ CircleCollider2D:
   m_GameObject: {fileID: 1308920238421078}
   m_Enabled: 1
   m_Density: 1
-  m_Material: {fileID: 0}
+  m_Material: {fileID: 6200000, guid: 1d8058e6f4807a24499b2e5dad6817c1, type: 2}
   m_IsTrigger: 0
   m_UsedByEffector: 0
   m_UsedByComposite: 0
@@ -265,7 +264,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 43d6e482774cde84483e07c9d7ee63f9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  DamagePerHit: 5
+  DamagePerHit: 20
   HitsPerSecond: 5
   dmgRange: {fileID: 68894303805961972}
 --- !u!114 &114385018218839374
@@ -318,9 +317,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   updateRate: 1
-  speed: 2000
+  speed: 1000
   fMode: 0
-  pathIsEnded: 0
   nextWaypointDistance: 1
 --- !u!114 &114902968274941728
 MonoBehaviour:
@@ -333,8 +331,8 @@ MonoBehaviour:
   m_Script: {fileID: -765806418, guid: f70555f144d8491a825f0804e09c671c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_Material: {fileID: 10754, guid: 0000000000000000f000000000000000, type: 0}
-  m_Color: {r: 0.2332657, g: 1, b: 0.20588237, a: 1}
+  m_Material: {fileID: 2100000, guid: 221dce819b3c03f459b518056bad6f56, type: 2}
+  m_Color: {r: 0.2332657, g: 1, b: 0.20588237, a: 0.453}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -365,27 +363,6 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
---- !u!114 &114956022896271056
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 1028676685524716}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: cb6a34d769a1e4ac7b0b30e433aa443c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  version: 1
-  smoothType: 0
-  subdivisions: 2
-  iterations: 2
-  strength: 0.5
-  uniformLength: 1
-  maxSegmentLength: 0.3
-  bezierTangentLength: 0.4
-  offset: 0.2
-  factor: 0.1
 --- !u!114 &114990433522550520
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -426,7 +403,7 @@ SpriteRenderer:
   m_LightProbeUsage: 1
   m_ReflectionProbeUsage: 1
   m_Materials:
-  - {fileID: 2100000, guid: 1820dc51fa7912c4cbc627f2fcb29843, type: 2}
+  - {fileID: 2100000, guid: 7c5641f61a7b18847b1e05c4d8b66f28, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0

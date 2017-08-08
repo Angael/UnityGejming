@@ -13,6 +13,7 @@ public class Gun : MonoBehaviour {
     public float shotsPerSecond;
     public float reloadTime = 1f;
     public float bulletSpeed;
+    public float MinRecoil = 0;
     public float MaxRecoil = 5;
     public float recoilAcceleration = 1;
     public float recoilStopTime = 1;
@@ -26,6 +27,12 @@ public class Gun : MonoBehaviour {
     public GameObject shootParticles; //pojawiają się przy celu
 
     private Transform gunPoint;
+
+    private Light muzzleFire;
+    private bool isActiveMuzzleFire = false;
+    private float timeOfMuzzleFire = 0.01f; // jak długo jest światełko
+    private float timeOfMuzzleFireOff = 0; // kiedy już trzeba wyłączyć
+
     private float timeOfNextShot = 0; //czas w którym już będzie można wykonać następny strzał
     private float timeOfReloaded; // Kiedy się skończy reload
     private float timeOfStartOfReload; // Kiedy zaczeliśmy reload
@@ -40,6 +47,8 @@ public class Gun : MonoBehaviour {
         //narazie zakładam że jest tylko jedna rzecz (child) w naszej broni, punkt z którego lecą pociski
         gunPoint = transform.GetChild(0).transform;
         weaponHolder = transform.parent.GetComponent<WeaponHolder>();
+        muzzleFire = gunPoint.GetComponentInChildren<Light>();
+        currentRecoil = MinRecoil;
     }
 
     public void useMain()
@@ -77,6 +86,10 @@ public class Gun : MonoBehaviour {
 
         shotBullet.GetComponent<Rigidbody2D>().velocity = gunPoint.right * bulletSpeed;
         Destroy(shotBullet, 3f);
+        //MuzzleFire
+        muzzleFire.enabled = true;
+        isActiveMuzzleFire = true;
+        timeOfMuzzleFireOff = Time.time + timeOfMuzzleFire;
 
         //rotate the gun a little bit, so we have some kind of fireSpread
         currentRecoil += (recoilAcceleration * 1/shotsPerSecond); // mnożymy przez 1/shotsPerSecond bo w ten sposób nie ważne jak szybko broń strzela, 
@@ -169,13 +182,19 @@ public class Gun : MonoBehaviour {
         //Jeśli ciągle strzelamy to nie ma co zwalniać zwiększania się rozrzutu broni
         if (Time.time > timeOfNextShot+Time.deltaTime)
         {
-            currentRecoil -= (MaxRecoil / recoilStopTime) * Time.deltaTime;
-            if (currentRecoil < 0)
+            currentRecoil -= ( (MaxRecoil-MinRecoil) / recoilStopTime) * Time.deltaTime;
+            if (currentRecoil < MinRecoil)
             {
-                currentRecoil = 0;
+                currentRecoil = MinRecoil;
             }
         }
-        
+
+        //Jeśli światełko ma sie już wyłączyć
+        if(Time.time > timeOfMuzzleFireOff)
+        {
+            muzzleFire.enabled = false;
+            isActiveMuzzleFire = false;
+        }
 
     }
 

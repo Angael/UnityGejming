@@ -9,7 +9,8 @@ public class HpCanvasRotation : MonoBehaviour {
 	// Use this for initialization
 	void Start () {
         parent = transform.parent;
-        relativeToParent = transform.position - parent.position;
+        //relativeToParent = transform.position - parent.position;
+        relativeToParent = Vector2.up ;
     }
 	
 	// Update is called once per frame

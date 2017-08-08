@@ -11,6 +11,7 @@ public class SingleTon : MonoBehaviour {
     public static SingleTon instance;
 
     public GameObject EndGameUI;
+    public bool isEnded = false;
 
     void Awake()
     {
@@ -49,11 +50,13 @@ public class SingleTon : MonoBehaviour {
         Debug.Log(mode);
         
         Time.timeScale = 1;
+        isEnded = false;
     }
 
     public void EndGame()
     {
-        Time.timeScale = 0;
         EndGameUI.SetActive(true);
+        isEnded = true;
+        Time.timeScale = 0;
     }
 }

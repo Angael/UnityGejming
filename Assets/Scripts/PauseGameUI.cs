@@ -15,8 +15,11 @@ public class PauseGameUI : MonoBehaviour {
         {
             if (Time.timeScale == 0)
             {
-                Time.timeScale = 1;
-                transform.GetComponent<Canvas>().enabled = false;
+                if (!SingleTon.instance.isEnded)
+                {
+                    Time.timeScale = 1;
+                    transform.GetComponent<Canvas>().enabled = false;
+                }
             }
             else
             {

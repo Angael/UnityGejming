@@ -8,7 +8,7 @@ public class EndMenuUI : MonoBehaviour
 
     void Start()
     {
-        gameObject.SetActive(false);
+        
     }
 
     void Update()
