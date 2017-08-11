@@ -9,7 +9,10 @@ public class Player_Actions : MonoBehaviour {
 
 
     public WeaponHolder weaponHolder;
-    
+    [Header("granade")]
+    public GameObject granade;
+    public float granadeCD = 1f;
+    private float timeToGranade = 0;
 
     //Wszystkie przyciski numeryczne 1-9
     private KeyCode[] keyCodes = {
@@ -48,6 +51,17 @@ public class Player_Actions : MonoBehaviour {
             //Debug.Log("r");
         }
 
+        if (Input.GetKeyDown(KeyCode.G))
+        {
+            if(timeToGranade <= Time.time)
+            {
+                throwGranade();
+                timeToGranade = Time.time + granadeCD;
+            }
+            
+            //Debug.Log("g");
+        }
+
         //scroll wheel for selecting weapons
         if (Input.GetAxis("Mouse ScrollWheel") > 0f) // forward
         {
@@ -74,5 +88,15 @@ public class Player_Actions : MonoBehaviour {
     {
         weaponHolder.pickUpAmmo(AmmoDrop); // do dokończenia
         
+    }
+
+    public void throwGranade()
+    {
+        //instanciate - lerp parts to their positions, at end call setcollider and setlinerenderer(maybe animation too)
+        Vector3 mouse_pos = Input.mousePosition;
+        Vector3 granadeTargetPos = Camera.main.ScreenToWorldPoint(new Vector3(mouse_pos.x, mouse_pos.y, Vector3.Distance(transform.position, Camera.main.transform.position)));
+        GameObject granadeClone = Instantiate(granade, transform.position, transform.rotation);
+        FiveGranade fiveGranade = granadeClone.GetComponent<FiveGranade>();
+        fiveGranade.Throw(granadeTargetPos);
     }
 }
